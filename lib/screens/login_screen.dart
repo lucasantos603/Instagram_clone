@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/resources/auth_methods.dart';
-import 'package:instagram_clone/screens/home_screen.dart';
+import 'package:instagram_clone/responsive/mobile_screen_layout.dart';
+import 'package:instagram_clone/responsive/responsive_layout_screen.dart';
+import 'package:instagram_clone/responsive/web_screen_layout.dart';
+// import 'package:instagram_clone/screens/home_screen.dart';
+import 'package:instagram_clone/screens/singup_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
@@ -37,7 +41,9 @@ class _loginScreenState extends State<loginScreen> {
     if (res == 'success') {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: ((context) => const HomeScreen()),
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout()),
         ),
       );
     } else {
@@ -46,6 +52,14 @@ class _loginScreenState extends State<loginScreen> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void navigateToSingup() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SingupScreen(),
+      ),
+    );
   }
 
   @override
@@ -122,12 +136,15 @@ class _loginScreenState extends State<loginScreen> {
                     child: const Text("Don't have an account?"),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
-                  Container(
-                    child: const Text(
-                      " Sing in",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: navigateToSingup,
+                    child: Container(
+                      child: const Text(
+                        " Sing in",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 8),
                   )
                 ],
               ),
