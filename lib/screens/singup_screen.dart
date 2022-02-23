@@ -55,15 +55,16 @@ class _SingupScreenState extends State<SingupScreen> {
         file: _image!);
 
     if (res != 'success') {
-      showSnackBar(context, res);
-    } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(
-              webScreenLayout: WebScreenLayout(),
-              mobileScreenLayout: MobileScreenLayout()),
+            webScreenLayout: WebScreenLayout(),
+            mobileScreenLayout: MobileScreenLayout(),
+          ),
         ),
       );
+    } else {
+      showSnackBar(context, res);
     }
     setState(() {
       _isLoading = false;
