@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/user.dart' as model;
 import 'package:instagram_clone/provider/user_provider.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/global_variables.dart';
 import 'package:provider/provider.dart';
 
 class MobileScreenLayout extends StatefulWidget {
@@ -34,7 +35,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     pageController.jumpToPage(page);
   }
 
-  void onPageChanged(int page){
+  void onPageChanged(int page) {
     setState(() {
       _page = page;
     });
@@ -48,7 +49,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: [Text('feed'), Text('search'), Text('add'), Text('Favorite'), Text('perfil')],
+        children: homeScreenItem,
         physics: NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: CupertinoTabBar(
