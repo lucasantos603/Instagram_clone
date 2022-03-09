@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:intl/intl.dart';
 
-class PostCart extends StatelessWidget {
-  const PostCart({Key? key}) : super(key: key);
+class PostCard extends StatelessWidget {
+  final snap;
+  const PostCard({Key? key, required this.snap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,7 @@ class PostCart extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 16,
-                  backgroundImage: const NetworkImage(
-                      'https://images.unsplash.com/photo-1646433877623-5652622b515b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
+                  backgroundImage: NetworkImage(snap['profImages']),
                 ),
                 Expanded(
                   child: Padding(
@@ -29,7 +30,7 @@ class PostCart extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('username',
+                        Text(snap['username'],
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ))
@@ -68,7 +69,7 @@ class PostCart extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.35,
             width: double.infinity,
             child: Image.network(
-              'https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+              snap['postUrls'],
               fit: BoxFit.cover,
             ),
           ),
@@ -120,7 +121,7 @@ class PostCart extends StatelessWidget {
                       .subtitle2!
                       .copyWith(fontWeight: FontWeight.w800),
                   child: Text(
-                    "1.231 likes",
+                    '${snap['like'].length} likes',
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
@@ -132,27 +133,34 @@ class PostCart extends StatelessWidget {
                         style: const TextStyle(color: primaryColor),
                         children: [
                           TextSpan(
-                            text: 'username',
+                            text: snap['username'],
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
-                            text: ' Hey this is some description to be replaced',
+                            text:
+                              '  ${snap['description']}',
                             // style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ]),
                   ),
                 ),
                 InkWell(
-                  onTap: (){},
+                  onTap: () {},
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Text('View all 200 comments', style: TextStyle(fontSize: 16, color: secondaryColor),),
+                    child: Text(
+                      'View all 200 comments',
+                      style: TextStyle(fontSize: 16, color: secondaryColor),
+                    ),
                   ),
                 ),
                 Container(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Text('07/03/2022', style: TextStyle(fontSize: 16, color: secondaryColor),),
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(
+                   DateFormat.yMMMd().format(snap['datePublished'].toDate()),
+                    style: TextStyle(fontSize: 16, color: secondaryColor),
                   ),
+                ),
               ],
             ),
           ),
